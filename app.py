@@ -118,7 +118,7 @@ def moving_averages():
             print("Check this:  ",result.dtypes)
             print(result.head())
 
-            result = result.applymap(lambda x: str(x) if isinstance(x, (tuple, datetime.date, datetime.datetime)) else x)
+            result = result.map(lambda x: str(x) if isinstance(x, (tuple, datetime.date, datetime.datetime)) else x)
 
             # Ensure all data is JSON serializable
             return jsonify(result.to_dict(orient='records'))
