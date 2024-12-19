@@ -11,7 +11,7 @@ def calculate_fibonacci_retracement(stock_data):
         dict: A dictionary containing Fibonacci retracement levels and the stock data.
     """
     # Ensure required columns exist
-    required_columns = {"High", "Low", "Close", "Date"}
+    required_columns = {"Close", "Date"}
     if not required_columns.issubset(stock_data.columns):
         raise ValueError(f"Missing required columns. Ensure {required_columns} are present in the data.")
 
