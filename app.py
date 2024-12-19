@@ -113,6 +113,7 @@ def get_indicator():
         print(data.head())
 
         if indicator == 'MA':
+            print("inside MA")
             result = calculate_MA2050100(data)
             result['Date'] = result['Date'].astype(str)  # Ensure Date is a string
 
