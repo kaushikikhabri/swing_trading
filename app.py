@@ -102,6 +102,8 @@ def moving_averages():
         # Download 6 months of data
         data = yf.download(ticker, period="6mo")
         data.reset_index(inplace=True)
+
+        print(data)
         
         # SIMPLE moving average
         if indicator == 'MA':
