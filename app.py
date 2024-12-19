@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request
 import yfinance as yf
 from flask_cors import CORS
 import pandas as pd
+import datetime
 
 
 # from charts import create_candlestick_chart
@@ -103,11 +104,25 @@ def moving_averages():
         data = yf.download(ticker, period="6mo")
         data.reset_index(inplace=True)
 
-        print(data)
+          # Debugging: Check downloaded data
+        print(data.dtypes)
+        print(data.head())
         
         # SIMPLE moving average
         if indicator == 'MA':
             result = calculate_MA2050100(data)
+            # Ensure Date is a string
+            result['Date'] = result['Date'].dt.strftime('%Y-%m-%d')
+
+            # Debugging: Check processed result
+            print("Check this:  ",result.dtypes)
+            print(result.head())
+
+            result = result.applymap(lambda x: str(x) if isinstance(x, (tuple, datetime.date, datetime.datetime)) else x)
+
+            # Ensure all data is JSON serializable
+            return jsonify(result.to_dict(orient='records'))
+
         elif indicator == 'MA20':
             result = calculate_MA20(data)
         elif indicator == 'MA50':

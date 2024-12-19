@@ -1,18 +1,20 @@
 import pandas as pd
 
 #SIMPLE MOVING AVERAGES
+
+# def calculate_MA2050100(data):
+#     data['MA20'] = data['Close'].rolling(window=20).mean()
+#     data['MA50'] = data['Close'].rolling(window=50).mean()
+#     data['MA100'] = data['Close'].rolling(window=100).mean()
+#     result = data[['Date', 'Close', 'MA20', 'MA50', 'MA100']].dropna().reset_index()
+#     return result
+
 def calculate_MA2050100(data):
     data['MA20'] = data['Close'].rolling(window=20).mean()
     data['MA50'] = data['Close'].rolling(window=50).mean()
     data['MA100'] = data['Close'].rolling(window=100).mean()
-    
-    # Reset column names (if necessary)
-    data.columns = [str(col) for col in data.columns]
-    
     result = data[['Date', 'Close', 'MA20', 'MA50', 'MA100']].dropna().reset_index(drop=True)
-    result_json = result.to_dict(orient="records")
-    return result_json
-
+    return result
 
 
 def calculate_MA20(data):
