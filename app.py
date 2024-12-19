@@ -93,21 +93,35 @@ def calculate_support_resistance():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+
+
+
 @app.route('/indicators', methods=['GET'])
-def moving_averages():
-    ticker = request.args.get('ticker', 'AAPL')  # Default to 'AAPL' if no ticker is provided
-    indicator = request.args.get('indicator', 'MA20')  # Default to 'MA20' if no indicator is provided
+def get_indicator():
+    ticker = request.args.get('ticker', 'AAPL')
+    indicator = request.args.get('indicator', 'MA20')
 
     try:
-        # Download 6 months of data
+        # Download data
         data = yf.download(ticker, period="6mo")
         data.reset_index(inplace=True)
-
-        # print(data)
+        data.columns = data.columns.map(str)  # Ensure column names are strings
         
-        # SIMPLE moving average
+        # Debugging logs
+        print(data.dtypes)
+        print(data.head())
+
         if indicator == 'MA':
             result = calculate_MA2050100(data)
+            result['Date'] = result['Date'].astype(str)  # Ensure Date is a string
+
+            # Debugging logs
+            print("MA:   ", result.dtypes)
+            print("MA Head:   ",result.head())
+
+            return jsonify(result.to_dict(orient='records'))
+
         elif indicator == 'MA20':
             result = calculate_MA20(data)
         elif indicator == 'MA50':
