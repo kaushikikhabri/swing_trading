@@ -10,6 +10,10 @@ def calculate_fibonacci_retracement(stock_data):
     Returns:
         dict: A dictionary containing Fibonacci retracement levels and the stock data.
     """
+
+    print(stock_data.head())
+    print(stock_data.columns)
+
     # Ensure required columns exist
     required_columns = {"Close", "Date"}
     if not required_columns.issubset(stock_data.columns):

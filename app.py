@@ -103,7 +103,7 @@ def moving_averages():
         data = yf.download(ticker, period="6mo")
         data.reset_index(inplace=True)
 
-        print(data)
+        # print(data)
         
         # SIMPLE moving average
         if indicator == 'MA':
@@ -148,10 +148,10 @@ def moving_averages():
             buy_signals, sell_signals = identify_buy_sell_signals(peaks, troughs, prices, dates)
             
             # Debugging print statements
-            print("Peaks:", peaks)
-            print("Troughs:", troughs)
-            print("Prices:", prices)
-            print("Dates:", dates)
+            # print("Peaks:", peaks)
+            # print("Troughs:", troughs)
+            # print("Prices:", prices)
+            # print("Dates:", dates)
 
             # Create a DataFrame with Close Prices, Peaks, and Troughs
             df = pd.DataFrame({'Date': dates, 'Close': prices})
